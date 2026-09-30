@@ -1,0 +1,5 @@
+// Syed zada X niazi 𝐌𝐃D 
+const { cmd, commands } = require('../command');
+const os = require("os");
+const config = require('../config');
+cmd({pattern: "alive",alias: ["live"],desc: "Check uptime and system status",category: "main",react: "🟢",filename: __filename}, async (conn, mek, m, { from, reply }) => { try { await conn.sendMessage(from,{react:{text:'⏳',key:m.key}}); const formatUptime=(seconds)=>{const days=Math.floor(seconds/(3600*24));const hours=Math.floor((seconds%(3600*24))/3600);const minutes=Math.floor((seconds%3600)/60);const secs=Math.floor(seconds%60);let t='';if(days>0)t+=`${days} day${days>1?'s':''} `;if(hours>0)t+=`${hours} hour${hours>1?'s':''} `;if(minutes>0)t+=`${minutes} minute${minutes>1?'s':''} `;if(secs>0||t==='')t+=`${secs} second${secs!==1?'s':''}`;return t.trim()}; const uptime=formatUptime(process.uptime()); await conn.sendMessage(from,{text:`🤖 Bot is alive since: *${uptime}*`},{quoted:mek}); await conn.sendMessage(from,{react:{text:'✅',key:m.key}}); } catch(e){await reply(`❌ An error occurred: ${e.message}`)}});
