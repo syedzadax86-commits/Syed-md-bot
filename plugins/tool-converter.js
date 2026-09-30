@@ -44,6 +44,7 @@ cmd({
     }
 });
 
+// Convert to MP3 (15 minutes limit, lowest quality)
 cmd({
     pattern: 'tomp3',
     alias: ['mp3', 'audio'],
@@ -93,6 +94,7 @@ cmd({
     }
 });
 
+// Convert to PTT (15 minutes limit, optimized voice)
 cmd({
     pattern: 'toptt',
     alias: ['voice', 'tovoice'],

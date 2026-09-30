@@ -1,18 +1,38 @@
-const { cmd } = require('../command');
+const { cmd } = require("../command");
 
 cmd({
-    pattern: "vcard",
-    alias: ["vcf", "contacts"],
-    desc: "Create a vCard for a mentioned user",
-    category: "utility",
-    react: "👤",
-    filename: __filename
-}, async (conn, mek, m, { from, reply }) => {
-    const user = m.mentionedJid && m.mentionedJid[0];
-    if (!user) return reply('❌ Tag a user to create a contact.');
-    try {
-        const number = user.split('@')[0].split(':')[0];
-        const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:+${number}\nTEL;type=CELL;type=VOICE;waid=${number}:+${number}\nEND:VCARD`;
-        await conn.sendMessage(from, { contacts: { displayName: `+${number}`, contacts: [{ vcard }] } }, { quoted: mek });
-    } catch (e) { console.error(e); reply('❌ Failed to create contact.'); }
+  pattern: "vcard",
+  alias: ["contacts"],
+  desc: "Create a contact card for group members",
+  category: "group",
+  filename: __filename,
+  react: "📇"
+}, async (conn, mek, m, { from, isGroup, isAdmins, isCreator, reply }) => {
+  try {
+    if (!isGroup) return await reply("⚠️ This command only works in groups.");
+    if (!isAdmins && !isCreator) return await reply("🔐 Only admins can use this command.");
+
+    const metadata = await conn.groupMetadata(from);
+    const participants = metadata.participants || [];
+
+    if (!participants.length) return await reply("❌ No members found.");
+
+    const contacts = participants.map((p, i) => {
+      const number = p.id.split("@")[0];
+      return `BEGIN:VCARD
+VERSION:3.0
+FN:Member ${i + 1}
+TEL;TYPE=CELL:+${number}
+END:VCARD`;
+    }).join("\n");
+
+    await conn.sendMessage(from, {
+      document: Buffer.from(contacts),
+      fileName: "group-contacts.vcf",
+      mimetype: "text/vcard"
+    }, { quoted: mek });
+  } catch (err) {
+    console.error(err);
+    await reply("❌ Failed to create contact card.");
+  }
 });

@@ -1,25 +1,26 @@
-const axios = require('axios');
-const config = require('../config')
-const {cmd , commands} = require('../command')
-const googleTTS = require('google-tts-api')
+const googleTTS = require('google-tts-api');
+const { cmd } = require('../command');
 
 cmd({
-    pattern: "tts",
-    desc: "download songs",
-    category: "download",
-    react: "💀",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("Need some text.")
+  pattern: "tts",
+  desc: "Convert text to speech",
+  category: "download",
+  react: "💀",
+  filename: __filename
+}, async (conn, mek, m, { from, q, reply }) => {
+  try {
+    if (!q) return reply("Need some text.");
     const url = googleTTS.getAudioUrl(q, {
-  lang: 'hi-IN',
-  slow: false,
-  host: 'https://translate.google.com',
-})
-await conn.sendMessage(from, { audio: { url: url }, mimetype: 'audio/mpeg', ptt: false }, { quoted: mek })
-    }catch(a){
-reply(`${a}`)
-}
-})
+      lang: 'hi-IN',
+      slow: false,
+      host: 'https://translate.google.com'
+    });
+    return conn.sendMessage(from, {
+      audio: { url },
+      mimetype: 'audio/mpeg',
+      ptt: false
+    }, { quoted: mek });
+  } catch (e) {
+    return reply(String(e));
+  }
+});
