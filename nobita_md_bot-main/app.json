@@ -1,0 +1,60 @@
+{
+  "name": "SYED-ZADA-X-NIAZI-MD",
+  "description": "Syed zada X niazi 𝐌𝐃 WhatsApp Bot",
+  "logo": "https://node-js-active-record.herokuapp.com/assets/heroku-logo.png",
+  "keywords": [
+    "node",
+    "express",
+    "heroku",
+    "database",
+    "postgres",
+    "mongodb"
+  ],
+  "env": {
+    "MONGODB_URL": {
+      "description": "MongoDB connection string for Syed zada X niazi 𝐌𝐃 (mongodb+srv://...)",
+      "required": true
+    },
+    "DB_NAME": {
+      "description": "The specific database name to connect to",
+      "required": true
+    },
+    "MAX_SESSIONS": {
+      "description": "Maximum WhatsApp sessions on this server",
+      "value": "50",
+      "required": false
+    },
+    "SERVER_ID": {
+      "description": "Unique server ID, e.g. server-1",
+      "value": "server-1",
+      "required": false
+    },
+    "SERVER_API_KEY": {
+      "description": "Private API key used by the central pairing site to call this server",
+      "required": true
+    },
+    "CENTRAL_PAIRING_URL": {
+      "description": "Central Syed zada X niazi 𝐌𝐃 pairing site",
+      "value": "https://barbie-md.vercel.app",
+      "required": true
+    },
+    "CENTRAL_REGISTRATION_SECRET": {
+      "description": "Must match REGISTRATION_SECRET on the central Vercel site",
+      "required": true
+    },
+    "SERVER_PUBLIC_URL": {
+      "description": "Public HTTPS URL of this Heroku server",
+      "required": true
+    },
+    "SERVER_NAME": {
+      "description": "Display name for this server",
+      "value": "Server 1",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
