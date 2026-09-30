@@ -1,0 +1,3 @@
+const { cmd } = require("../command");
+const path = require("path");
+cmd({pattern: "l",desc: "Send a random fun pic.",category: "attitude",react: "💪",filename: __filename,use: "",}, async (conn, mek, m, { reply }) => { try { const pics = [path.join(__dirname, '../lib/love.jpg')]; const randomPic = pics[Math.floor(Math.random() * pics.length)]; await conn.sendMessage(mek.chat,{ image: { url: randomPic }, caption: `> Soni shah 🖤` },{ quoted: mek }); } catch (error) { console.error("❌ Error in .jao command:", error); reply("❌ *Error in .jao command:*\n" + error.message); } });
