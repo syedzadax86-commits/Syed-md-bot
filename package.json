@@ -1,0 +1,9 @@
+{
+  "name": "syed-md-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Syed zada X niazi MD Bot",
+  "engines": {
+    "node": "22.x"
+  }
+}
