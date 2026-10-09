@@ -2,8 +2,17 @@
   "name": "syed-md-bot",
   "version": "1.0.0",
   "private": true,
-  "description": "Syed zada X niazi MD Bot",
+  "description": "Syed zada X niazi MD pairing API",
   "engines": {
     "node": "22.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.18",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pino": "^9.6.0"
   }
 }
